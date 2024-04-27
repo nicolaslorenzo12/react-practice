@@ -6,8 +6,6 @@ yarn-error.log
 # Build files
 build/
 dist/
-*.js
-*.css
 
 # IDE/Editor specific files
 .vscode/

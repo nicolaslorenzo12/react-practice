@@ -1,0 +1,56 @@
+.centered-header{
+    text-align: center;
+}
+
+table{
+    margin:auto;
+}
+
+table {
+    font-size: 20px;
+  }
+
+
+  table, th, td{
+    border: 1px solid;
+  }
+
+  tr:hover{
+    cursor: pointer;
+  }
+
+  a{
+    color: #161414;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+  h1{
+    text-align: center;
+  }
+
+.action-button{
+  margin-top: 20px !important;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+.add-or-delete-button{
+  margin: auto;
+}
+
+label{
+  text-align: center;
+}
+
+input{
+  margin-left: 10px;
+}
+
+label{
+  margin-bottom: 30px;
+}

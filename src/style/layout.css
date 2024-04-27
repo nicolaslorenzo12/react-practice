@@ -1,0 +1,39 @@
+/* styles.css */
+
+/* Resetting default margin and padding */
+body, ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Styles for navigation */
+  nav {
+    background-color: #3333332f; /* Dark background color */
+    color: #fff; /* Text color */
+    padding: 20px 0; /* Padding top and bottom */
+    text-align: center; /* Center-align the navigation */
+  }
+  
+  ul {
+    list-style-type: none; /* Remove bullet points from list */
+  }
+  
+  li {
+    display: inline-block; /* Display links horizontally */
+    margin-right: 20px; /* Add some space between links */
+  }
+  
+  /* Styling for links */
+  .layout-link {
+    color: #0f0f3a; /* Text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Font weight */
+    text-decoration: none !important;
+  }
+  
+  .layout-link:hover {
+    color:#2ddba1;
+    text-decoration: none; /* Underline on hover */
+  }
+  
