@@ -37,6 +37,7 @@ table {
 form{
   display: flex;
   flex-direction: column;
+  
 }
 
 .add-or-delete-button{
@@ -48,9 +49,15 @@ label{
 }
 
 input{
-  margin-left: 10px;
+  margin:auto;
 }
 
-label{
-  margin-bottom: 30px;
+
+.state-button{
+  text-align: center;
+  margin-top: 20px;
 }
+
+/* #new-supermarket-name-null{
+  display: none;
+} */
