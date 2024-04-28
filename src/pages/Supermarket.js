@@ -11,8 +11,9 @@ const Supermarket = () => {
   );
 };
 
+let superMarketIdManager = 3;
+
 const SupermarketManagement = () => {
-  let superMarketIdManager = 3;
   const [showForm, setShowForm] = useState(false);
   const [supermarkets, setSupermarkets] = useState([
     { id: 1, name: "NicoSupermarket" },
@@ -188,8 +189,8 @@ const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate}) => {
               </td>
               <td>
                 <div className="button-actions">
-                  <button onClick={() => deleteSupermarket(supermarket.id)}>Delete</button>
-                  <button onClick={() => toggleUpdateState(supermarket.id)}>Update</button>
+                  <button id={supermarket.id} onClick={() => deleteSupermarket(supermarket.id)}>Delete</button>
+                  <button id={supermarket.id} onClick={() => toggleUpdateState(supermarket.id)}>Update</button>
                 </div>
               </td>
             </tr>
