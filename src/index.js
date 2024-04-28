@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Product from "./pages/Product";
 import { Supermarket } from "./pages/Supermarket";
-// import { SupermarketTable } from "./pages/Supermarket";
 import Contact from "./pages/Contact";
 import ProductsOfSupermarket from "./pages/ProductsOfSupermarket";
 

@@ -1,103 +1,3 @@
-// import { Link } from "react-router-dom";
-// import '../style/generalstyle.css';
-// const Supermarket = () => {
-//   return (
-//     <div>
-//       <h1 className="centered-header">Supermarkets</h1>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Supermarket Name</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           <tr>
-//             <td>
-//               <Link to={`/productsofasupermarket/${1}`}>NicoSupermarket</Link>
-//             </td>
-//           </tr>
-//           <tr>
-//             <td>
-//               <Link to={`/productsofasupermarket/${2}`}>MartijnSupermarket</Link>
-//             </td>
-//           </tr>
-//           <tr>
-//             <td>
-//               <Link to={`/productsofasupermarket/${3}`}>GabySupermarket</Link>
-//             </td>
-//           </tr>
-//         </tbody>
-//       </table>
-
-//       <Link to= "/addsupermarket"className="action-button">
-//             <button>Add Supermarket</button>
-//       </Link>
-//     </div>    
-//   );
-// };
-
-// export default Supermarket;
-
-
-
-
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import '../style/generalstyle.css';
-
-// const Supermarket = () => {
-//   return (
-//     <div>
-//       <h1 className="centered-header">Supermarkets</h1>
-//       <Link to="/addsupermarket" className="action-button">
-//       </Link>
-//     </div>    
-//   );
-// };
-
-// // Define the SupermarketTable component
-// const SupermarketTable = () => {
-//   return (
-//     <div>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Supermarket Name</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           <tr>
-//             <td>
-//               <Link to={`/productsofasupermarket/${1}`}>NicoSupermarket</Link>
-//             </td>
-//           </tr>
-//           <tr>
-//             <td>
-//               <Link to={`/productsofasupermarket/${2}`}>MartijnSupermarket</Link>
-//             </td>
-//           </tr>
-//           <tr>
-//             <td>
-//               <Link to={`/productsofasupermarket/${3}`}>GabySupermarket</Link>
-//             </td>
-//           </tr>
-//         </tbody>
-//       </table>
-
-//       <Link className="add-or-delete-button">
-//           <button className="action-button">Add Supermarket</button>
-//       </Link>
-//     </div>
-    
-//   );
-// };
-
-// export { Supermarket, SupermarketTable }
-
-
-
-
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import '../style/generalstyle.css';
@@ -127,6 +27,7 @@ const SupermarketManagement = () => {
     setNewSupermarketName(""); 
     setShowErrorMessage(false); // Reset error message state
   };
+  
 
   const deleteSupermarket = (supermarketId) =>{
       const updatedSupermarkets = supermarkets.filter(supermarket => supermarket.id !== supermarketId);
@@ -135,6 +36,17 @@ const SupermarketManagement = () => {
 
   const handleInputChange = (e) => {
     setNewSupermarketName(e.target.value);
+  };
+
+  const changeSupermarketName = (id, e) => {
+    const updatedSupermarkets = supermarkets.map(supermarket => {
+      if (supermarket.id === id) {
+        return { ...supermarket, name: e.target.value };
+      }
+      return supermarket;
+    });
+  
+    setSupermarkets(updatedSupermarkets);
   };
 
   const handleAddSupermarket = () => {
@@ -173,7 +85,7 @@ const SupermarketManagement = () => {
         </div>
       ) : (
         <div>
-          <SupermarketTable supermarkets={supermarkets} deleteSupermarket={deleteSupermarket} />
+          <SupermarketTable supermarkets={supermarkets} deleteSupermarket={deleteSupermarket} handleUpdate={changeSupermarketName} />
           <div className="state-button">
             <button onClick={toggleForm}>Add Supermarket</button>
           </div>
@@ -185,27 +97,99 @@ const SupermarketManagement = () => {
   );
 };
 
-const SupermarketTable = ({ supermarkets, deleteSupermarket }) => {
+// const SupermarketTable = ({ supermarkets, deleteSupermarket,handleInputChange }) => {
+
+//   const [updating, setUpdating] = useState(false);
+//   const toggleUpdateState = () => {
+//     setUpdating(!updating)
+//   };
+
+//   return (
+//     <div>
+//       <table>
+//         <thead>
+//           <tr>
+//             <th>Supermarket Name</th>
+//             <th>Click to delete</th>
+//             <th>Click to update</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {supermarkets.map(supermarket => (
+//             <tr key={supermarket.id}>
+//               {/* <td>
+//                 <Link to={`/productsofasupermarket/${supermarket.id}`}>
+//                   {supermarket.name}
+//                 </Link>
+//               </td> */}
+//               <td>
+//                 {updating ? (
+//                   <input
+//                     type="text"
+//                     value={supermarket.name}
+//                     onChange={handleInputChange}
+//                   />
+//                 ) : (
+//                   <Link to={`/productsofasupermarket/${supermarket.id}`}>
+//                     {supermarket.name}
+//                   </Link>
+//                 )}
+//               </td>
+//               <td>
+//                 <div id={supermarket.id} className="button-to-delete">
+//                     <button onClick={() => deleteSupermarket(supermarket.id)}>delete</button>
+//                 </div>
+//               </td>
+
+//               <td>
+//                 <div id={supermarket.id} className="button-to-delete">
+//                     <button onClick={toggleUpdateState}>update</button>
+//                 </div>
+//               </td>
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// };
+
+const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate}) => {
+  const [idSupermarketToUpdate, setIdSupermarketToUpdate] = useState(null);
+
+  const toggleUpdateState = (supermarketId) => {
+    setIdSupermarketToUpdate(idSupermarketToUpdate === supermarketId ? null : supermarketId);
+  };
+
   return (
     <div>
       <table>
         <thead>
           <tr>
             <th>Supermarket Name</th>
-            <th>Click to delete</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {supermarkets.map(supermarket => (
             <tr key={supermarket.id}>
               <td>
-                <Link to={`/productsofasupermarket/${supermarket.id}`}>
-                  {supermarket.name}
-                </Link>
+                {idSupermarketToUpdate === supermarket.id ? (
+                  <input
+                    type="text"
+                    value={supermarket.name.value}
+                    onChange={(e) => handleUpdate(supermarket.id, e)}
+                  />
+                ) : (
+                  <Link to={`/productsofasupermarket/${supermarket.id}`}>
+                    {supermarket.name}
+                  </Link>
+                )}
               </td>
               <td>
-                <div id={supermarket.id} className="button-to-delete">
-                    <button onClick={() => deleteSupermarket(supermarket.id)}>delete</button>
+                <div className="button-actions">
+                  <button onClick={() => deleteSupermarket(supermarket.id)}>Delete</button>
+                  <button onClick={() => toggleUpdateState(supermarket.id)}>Update</button>
                 </div>
               </td>
             </tr>
