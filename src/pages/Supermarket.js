@@ -112,6 +112,7 @@ const Supermarket = () => {
 };
 
 const SupermarketManagement = () => {
+  let superMarketIdManager = 3;
   const [showForm, setShowForm] = useState(false);
   const [supermarkets, setSupermarkets] = useState([
     { id: 1, name: "NicoSupermarket" },
@@ -127,14 +128,20 @@ const SupermarketManagement = () => {
     setShowErrorMessage(false); // Reset error message state
   };
 
+  const deleteSupermarket = (supermarketId) =>{
+      const updatedSupermarkets = supermarkets.filter(supermarket => supermarket.id !== supermarketId);
+      setSupermarkets(updatedSupermarkets);
+  };
+
   const handleInputChange = (e) => {
     setNewSupermarketName(e.target.value);
   };
 
   const handleAddSupermarket = () => {
     if (newSupermarketName !== "") {
+      superMarketIdManager = superMarketIdManager + 1
         const newSupermarket = {
-        id: supermarkets.length + 1,
+        id: superMarketIdManager + 1,
         name: newSupermarketName
       };
       setSupermarkets([...supermarkets, newSupermarket]);
@@ -162,28 +169,30 @@ const SupermarketManagement = () => {
           <div className="state-button">
             <button type="button" onClick={toggleForm}>Cancel</button>
             {showErrorMessage && <p id="new-supermarket-name-null">The name of the supermarket can not be null</p>}
-            {/* <p id="new-supermarket-name-null">The name of the supermarket can not be null</p> */}
           </div>
         </div>
       ) : (
         <div>
-          <SupermarketTable supermarkets={supermarkets} />
+          <SupermarketTable supermarkets={supermarkets} deleteSupermarket={deleteSupermarket} />
           <div className="state-button">
             <button onClick={toggleForm}>Add Supermarket</button>
           </div>
+          <div>
+    </div>
         </div>
       )}
     </div>
   );
 };
 
-const SupermarketTable = ({ supermarkets }) => {
+const SupermarketTable = ({ supermarkets, deleteSupermarket }) => {
   return (
     <div>
       <table>
         <thead>
           <tr>
             <th>Supermarket Name</th>
+            <th>Click to delete</th>
           </tr>
         </thead>
         <tbody>
@@ -193,6 +202,11 @@ const SupermarketTable = ({ supermarkets }) => {
                 <Link to={`/productsofasupermarket/${supermarket.id}`}>
                   {supermarket.name}
                 </Link>
+              </td>
+              <td>
+                <div id={supermarket.id} className="button-to-delete">
+                    <button onClick={() => deleteSupermarket(supermarket.id)}>delete</button>
+                </div>
               </td>
             </tr>
           ))}
