@@ -133,24 +133,24 @@ const SupermarketManagement = () => {
 
   const handleAddSupermarket = () => {
     if (newSupermarketName !== "") {
-      const newSupermarket = {
+        const newSupermarket = {
         id: supermarkets.length + 1,
         name: newSupermarketName
       };
       setSupermarkets([...supermarkets, newSupermarket]);
       setNewSupermarketName(""); // Erase the previous name you added in the input
       setShowForm(false); // Hide the form after adding the new supermarket
-    }
-    else{
-      setShowErrorMessage(true);
-    }
+      }
+      else{
+        setShowErrorMessage(true);
+      }
   
   };
 
   return (
     <div>
       {showForm ? (
-        <form>
+        <div>
           <input
             type="text"
             value={newSupermarketName}
@@ -160,11 +160,11 @@ const SupermarketManagement = () => {
             <button onClick={handleAddSupermarket}>Add Supermarket</button>
           </div>
           <div className="state-button">
-            <button onClick={toggleForm}>Cancel</button>
+            <button type="button" onClick={toggleForm}>Cancel</button>
             {showErrorMessage && <p id="new-supermarket-name-null">The name of the supermarket can not be null</p>}
             {/* <p id="new-supermarket-name-null">The name of the supermarket can not be null</p> */}
           </div>
-        </form>
+        </div>
       ) : (
         <div>
           <SupermarketTable supermarkets={supermarkets} />
