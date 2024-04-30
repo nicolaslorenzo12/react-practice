@@ -54,7 +54,7 @@ const SupermarketManagement = () => {
     if (newSupermarketName !== "") {
       superMarketIdManager = superMarketIdManager + 1
         const newSupermarket = {
-        id: superMarketIdManager + 1,
+        id: superMarketIdManager,
         name: newSupermarketName
       };
       setSupermarkets([...supermarkets, newSupermarket]);
