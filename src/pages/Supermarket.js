@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import '../style/generalstyle.css';
 
@@ -23,46 +23,43 @@ const SupermarketManagement = () => {
   const [newSupermarketName, setNewSupermarketName] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  const toggleForm = () => {
-    setShowForm(!showForm);
+  const toggleForm = useCallback(() => {
+    setShowForm(prevState => !prevState);
     setNewSupermarketName(""); 
     setShowErrorMessage(false); // Reset error message state
-  };
+  }, []);
 
-  const deleteSupermarket = (supermarketId) => {
-    const updatedSupermarkets = supermarkets.filter(supermarket => supermarket.id !== supermarketId);
-    setSupermarkets(updatedSupermarkets);
-  };
+  const deleteSupermarket = useCallback((supermarketId) => {
+    setSupermarkets(prevSupermarkets => prevSupermarkets.filter(supermarket => supermarket.id !== supermarketId));
+  }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     setNewSupermarketName(e.target.value);
-  };
+  }, []);
 
-  const changeSupermarketName = (id, e) => {
-    const updatedSupermarkets = supermarkets.map(supermarket => {
+  const changeSupermarketName = useCallback((id, e) => {
+    setSupermarkets(prevSupermarkets => prevSupermarkets.map(supermarket => {
       if (supermarket.id === id) {
         return { ...supermarket, name: e.target.value };
       }
       return supermarket;
-    });
+    }));
+  }, []);
 
-    setSupermarkets(updatedSupermarkets);
-  };
-
-  const handleAddSupermarket = () => {
+  const handleAddSupermarket = useCallback(() => {
     if (newSupermarketName !== "") {
       superMarketIdManager = superMarketIdManager + 1
       const newSupermarket = {
         id: superMarketIdManager,
         name: newSupermarketName
       };
-      setSupermarkets([...supermarkets, newSupermarket]);
+      setSupermarkets(prevSupermarkets => [...prevSupermarkets, newSupermarket]);
       setNewSupermarketName(""); // Erase the previous name you added in the input
       setShowForm(false); // Hide the form after adding the new supermarket
     } else {
       setShowErrorMessage(true);
     }
-  };
+  }, [newSupermarketName]);
 
   // Memoize the supermarkets array so the SupermarketTable is not re-rendered if the prop does not change
   const memoizedSupermarkets = useMemo(() => supermarkets, [supermarkets]);
@@ -102,9 +99,9 @@ const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate }) => 
 
   const [idSupermarketToUpdate, setIdSupermarketToUpdate] = useState(null);
 
-  const toggleUpdateState = (supermarketId) => {
-    setIdSupermarketToUpdate(idSupermarketToUpdate === supermarketId ? null : supermarketId);
-  };
+  const toggleUpdateState = useCallback((supermarketId) => {
+    setIdSupermarketToUpdate(prevId => prevId === supermarketId ? null : supermarketId);
+  }, []);
 
   return (
     <div>
@@ -122,7 +119,7 @@ const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate }) => 
                 {idSupermarketToUpdate === supermarket.id ? (
                   <input
                     type="text"
-                    value={supermarket.name.value}
+                    value={supermarket.name}
                     onChange={(e) => handleUpdate(supermarket.id, e)}
                   />
                 ) : (
