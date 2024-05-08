@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import '../style/generalstyle.css';
 
-const Supermarket = () => {
+const SupermarketsInformation = () => {
   return (
     <div>
       <h1 className="centered-header">Supermarkets</h1>
@@ -14,14 +14,18 @@ const Supermarket = () => {
 let superMarketIdManager = 3;
 
 const SupermarketManagement = () => {
+
   const [showForm, setShowForm] = useState(false);
+
   const [supermarkets, setSupermarkets] = useState([
     { id: 1, name: "NicoSupermarket" },
     { id: 2, name: "MartijnSupermarket" },
     { id: 3, name: "GabySupermarket" }
   ]);
+
   const [newSupermarketName, setNewSupermarketName] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [idSupermarketToUpdate, setIdSupermarketToUpdate] = useState(null);
 
   const toggleForm = useCallback(() => {
     setShowForm(prevState => !prevState);
@@ -61,6 +65,10 @@ const SupermarketManagement = () => {
     }
   }, [newSupermarketName]);
 
+  const toggleUpdateState = useCallback((supermarketId) => {
+    setIdSupermarketToUpdate(prevId => prevId === supermarketId ? null : supermarketId);
+  }, []);
+
   // Memoize the supermarkets array so the SupermarketTable is not re-rendered if the prop does not change
   const memoizedSupermarkets = useMemo(() => supermarkets, [supermarkets]);
 
@@ -83,7 +91,8 @@ const SupermarketManagement = () => {
         </div>
       ) : (
         <div>
-          <SupermarketTable supermarkets={memoizedSupermarkets} deleteSupermarket={deleteSupermarket} handleUpdate={changeSupermarketName} />
+          <SupermarketTable supermarkets={memoizedSupermarkets} deleteSupermarket={deleteSupermarket} handleUpdate={changeSupermarketName}
+                            toggleUpdateState={toggleUpdateState} idSupermarketToUpdate={idSupermarketToUpdate} />
           <div className="state-button">
             <button onClick={toggleForm}>Add Supermarket</button>
           </div>
@@ -95,13 +104,13 @@ const SupermarketManagement = () => {
   );
 };
 
-const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate }) => {
+const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate, toggleUpdateState, idSupermarketToUpdate }) => {
 
-  const [idSupermarketToUpdate, setIdSupermarketToUpdate] = useState(null);
+  // const [idSupermarketToUpdate, setIdSupermarketToUpdate] = useState(null);
 
-  const toggleUpdateState = useCallback((supermarketId) => {
-    setIdSupermarketToUpdate(prevId => prevId === supermarketId ? null : supermarketId);
-  }, []);
+  // const toggleUpdateState = useCallback((supermarketId) => {
+  //   setIdSupermarketToUpdate(prevId => prevId === supermarketId ? null : supermarketId);
+  // }, []);
 
   return (
     <div>
@@ -142,4 +151,4 @@ const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate }) => 
   );
 };
 
-export { Supermarket };
+export { SupermarketsInformation as Supermarket };
