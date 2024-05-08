@@ -74,38 +74,6 @@ const SupermarketManagement = () => {
   const memoizedSupermarkets = useMemo(() => supermarkets, [supermarkets]);
 
   return (
-    // <div>
-    //   {showForm ? (
-    //     <div>
-    //       <input
-    //         type="text"
-    //         value={newSupermarketName}
-    //         onChange={handleInputChange}
-    //       />
-    //       <div className="state-button">
-    //         <button onClick={handleAddSupermarket}>Add Supermarket</button>
-    //       </div>
-    //       <div className="state-button">
-    //         <button type="button" onClick={toggleForm}>Cancel</button>
-    //         {showErrorMessage && <p id="new-supermarket-name-null">The name of the supermarket can not be null</p>}
-    //       </div>
-    //     </div>
-    //   ) : (
-    //     <div>
-    //       <SupermarketTable supermarkets={memoizedSupermarkets} deleteSupermarket={deleteSupermarket} handleUpdate={changeSupermarketName}
-    //                         toggleUpdateState={toggleUpdateState} idSupermarketToUpdate={idSupermarketToUpdate}
-    //                         newSupermarketName={newSupermarketName} handleInputChange={handleInputChange}
-    //                         handleAddSupermarket={handleAddSupermarket} toggleForm={toggleForm}
-    //                         showErrorMessage={showErrorMessage} />
-    //       <div className="state-button">
-    //         <button onClick={toggleForm}>Add Supermarket</button>
-    //       </div>
-    //       <div>
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
-
     <SupermarketTable supermarkets={memoizedSupermarkets} deleteSupermarket={deleteSupermarket} handleUpdate={changeSupermarketName}
                             toggleUpdateState={toggleUpdateState} idSupermarketToUpdate={idSupermarketToUpdate}
                             newSupermarketName={newSupermarketName} handleInputChange={handleInputChange}
@@ -116,45 +84,6 @@ const SupermarketManagement = () => {
 
 const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate, toggleUpdateState, idSupermarketToUpdate , newSupermarketName,
                             handleInputChange, handleAddSupermarket, toggleForm, showErrorMessage, showForm}) =>{
-
-  // return (
-  //   <div>
-  //     <table>
-  //       <thead>
-  //         <tr>
-  //           <th>Supermarket Name</th>
-  //           <th>Actions</th>
-  //         </tr>
-  //       </thead>
-  //       <tbody>
-  //         {supermarkets.map(supermarket => (
-  //           <tr key={supermarket.id}>
-  //             <td>
-  //               {idSupermarketToUpdate === supermarket.id && showForm ? (
-  //                 <input
-  //                   type="text"
-  //                   value={supermarket.name}
-  //                   onChange={(e) => handleUpdate(supermarket.id, e)}
-  //                 />
-  //               ) : (
-  //                 <Link to={`/productsofasupermarket/${supermarket.id}`}>
-  //                   {supermarket.name}
-  //                 </Link>
-  //               )}
-  //             </td>
-  //             <td>
-  //               <div className="button-actions">
-  //                 <button id={supermarket.id} onClick={() => deleteSupermarket(supermarket.id)}>Delete</button>
-  //                 <button id={supermarket.id} onClick={() => toggleUpdateState(supermarket.id)}>Update</button>
-  //               </div>
-  //             </td>
-  //           </tr>
-  //         ))}
-  //       </tbody>
-  //     </table>
-  //   </div>
-  // );
-
   return (
     <div>
       {showForm ? (
