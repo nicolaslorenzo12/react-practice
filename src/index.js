@@ -4,7 +4,7 @@ import Layout from "./pages/Layout";
 import Product from "./pages/Product";
 import { Supermarket } from "./pages/Supermarket";
 import Contact from "./pages/Contact";
-import ProductsOfSupermarket from "./pages/ProductsOfSupermarket";
+import TableOfProductsOfASupermarket from "./pages/ProductsOfSupermarket";
 
 export default function App() {
   return (
@@ -20,7 +20,7 @@ export default function App() {
           } /> */}
           <Route path="products" element={<Product/>} />
           <Route path="contact" element={<Contact/>} />
-          <Route path="productsofasupermarket/:supermarketId" element={<ProductsOfSupermarket/>} />
+          <Route path="productsofasupermarket/:supermarketId" element={<TableOfProductsOfASupermarket/>} />
         </Route>
       </Routes>
     </BrowserRouter>
