@@ -148,4 +148,4 @@ const SupermarketTable = ({ supermarkets, deleteSupermarket, handleUpdate, toggl
   
 };
 
-export { SupermarketsInformation as Supermarket };
+export { SupermarketsInformation };

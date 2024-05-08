@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Product from "./pages/Product";
-import { Supermarket } from "./pages/Supermarket";
+import { SupermarketsInformation } from "./pages/Supermarket";
 import Contact from "./pages/Contact";
 import TableOfProductsOfASupermarket from "./pages/ProductsOfSupermarket";
 
@@ -11,7 +11,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Supermarket />} />
+          <Route index element={<SupermarketsInformation />} />
           {/* <Route index element={
             <>
               <Supermarket />
